@@ -30,6 +30,10 @@ jobs:
     - name: Build Docker image
       run: docker build . --file Dockerfile --tag ${{ steps.meta.outputs.tags }}
 
+    - name: Start Docker container
+      run: |
+        docker run -d --name test-container ${{ steps.meta.outputs.tags }}      
+
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -39,19 +43,6 @@ jobs:
       run: |
         pip install -U pip pytest
         test -f requirements.txt && pip install -r requirements.txt
-
-    - name: Install ChromeDriver
-      run: |
-        CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`
-        wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip -d /home/runner/work/_temp
-        sudo mv /home/runner/work/_temp/chromedriver /usr/local/bin/chromedriver
-        sudo chown root:root /usr/local/bin/chromedriver
-        sudo chmod +x /usr/local/bin/chromedriver
-
-    - name: Start Docker container
-      run: |
-        docker run -d --name test-container ${{ steps.meta.outputs.tags }}
 
     - name: Run unit tests
       run: |
