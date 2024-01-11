@@ -42,5 +42,8 @@ jobs:
       run: |
         docker exec test-container python test-integration-app.py
 
+    - name: Remove Docker container
+      run: docker rm -f test-container
+
     - name: Push Docker image
       run: docker push ${{ steps.meta.outputs.tags }}
