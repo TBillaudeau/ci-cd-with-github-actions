@@ -55,11 +55,11 @@ jobs:
 
     - name: Run unit tests
       run: |
-        docker exec test-container python -m unittest test-unit.py
+        docker exec test-container python -m unittest test-unit-app.py
 
     - name: Run integration tests
       run: |
-        docker exec test-container python test-integration.py
+        docker exec test-container python test-integration-app.py
 
     - name: Push Docker image
       run: docker push ${{ steps.meta.outputs.tags }}
