@@ -9,8 +9,12 @@ class TestAppE2E(unittest.TestCase):
     def setUp(self):
         # Launch your flask app first
         chrome_options = Options()
-        chrome_options.binary_location = "/usr/bin/chromedriver"
-        self.driver = webdriver.Chrome(options=chrome_options)
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+
+        # Path to your chrome browser and chromedriver
+        self.driver = webdriver.Chrome(executable_path='/usr/bin/chromedriver', options=chrome_options)
         self.driver.get('http://localhost:5000')
 
     def test_add_and_delete_item(self):
