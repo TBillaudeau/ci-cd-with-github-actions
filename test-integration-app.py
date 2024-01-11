@@ -9,7 +9,6 @@ class TestAppE2E(unittest.TestCase):
     def setUp(self):
         # Launch your flask app first
         chrome_options = Options()
-        chrome_options.binary_location = r"C:\Users\T\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe"
         self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.get('http://localhost:5000')
 
