@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+import chromedriver_autoinstaller_fix
 
 class TestAppE2E(unittest.TestCase):
     def setUp(self):
@@ -12,9 +13,8 @@ class TestAppE2E(unittest.TestCase):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
-
-        # Path to your chrome browser and chromedriver
-        self.driver = webdriver.Chrome(executable_path='/usr/bin/chromedriver', options=chrome_options)
+        chromedriver_autoinstaller_fix.install()  
+        self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.get('http://localhost:5000')
 
     def test_add_and_delete_item(self):
