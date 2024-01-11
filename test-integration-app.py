@@ -8,8 +8,9 @@ from selenium.webdriver.common.by import By
 class TestAppE2E(unittest.TestCase):
     def setUp(self):
         # Launch your flask app first
-        chrome_options = webdriver.ChromeOptions()
-        self.driver = webdriver.Chrome(executable_path='/usr/bin/chromedriver', options=chrome_options)
+        chrome_options = Options()
+        chrome_options.binary_location = "/usr/bin/chromedriver"
+        self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.get('http://localhost:5000')
 
     def test_add_and_delete_item(self):
